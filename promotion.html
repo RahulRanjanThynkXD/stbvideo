@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Interruption</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .modal {
+            background: #2b2f38;
+            border-radius: 20px;
+            padding: 36px 40px;
+            width: 900px;
+            color: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .warning-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .warning-icon span {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 4px solid #ef4444;
+            color: #ef4444;
+            font-size: 34px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo-box {
+            background: #0000000;
+            border-radius: 16px;
+            width: 220px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box img {
+            max-width: 160px;
+        }
+
+        .divider {
+            width: 1px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .text {
+            flex: 1;
+            font-size: 22px;
+            line-height: 1.5;
+            color: #e5e7eb;
+        }
+
+        .eta {
+            margin-top: 16px;
+            font-size: 18px;
+            color: #d1d5db;
+        }
+
+        .actions {
+            margin-top: 36px;
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            width: 200px;
+            padding: 14px;
+            font-size: 20px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            background: #f3f4f6;
+            color: #111827;
+            font-weight: 600;
+        }
+
+        button:focus {
+            outline: 3px solid #60a5fa;
+        }
+    </style>
+</head>
+
+<body>
+<div class="modal">
+    <div class="warning-icon">
+        <span>!</span>
+    </div>
+
+    <div class="content">
+        <div class="logo-box">
+            <!-- Replace with local asset if required -->
+            <img src="/Set4_PN_314x176_opt.png" alt="Prime Video" />
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="text">
+            Unlimited movies and shows across 20+ OTT apps. Free for 30 days!
+
+            <div class="eta">
+                Activate on JioAppStore
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button onclick="onOk()">OK</button>
+    </div>
+</div>
+
+<script>
+    function onOk() {
+        // Preferred: Android native bridge (recommended for TV launcher)
+        if (window.androidButton && androidButton.onCapturedButtonClicked) {
+            androidButton.onCapturedButtonClicked(
+                "OPEN_STORE",
+                "store://jio.store/subscription"
+            );
+            return;
+        }
+
+        // Fallback: direct navigation (if bridge not available)
+        try {
+            window.location.href = "store://jio.store/subscription";
+        } catch (e) {
+            console.log("Failed to open store URI", e);
+        }
+    }
+</script>
+</body>
+</html>
